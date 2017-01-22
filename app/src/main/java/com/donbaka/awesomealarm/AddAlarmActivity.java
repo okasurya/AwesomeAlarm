@@ -107,7 +107,7 @@ public class AddAlarmActivity extends ArkAppCompatActivity {
      * @param alarm the data the will be set in alarm manager
      */
     private void setAlarm(Alarm alarm) {
-        AwesomeAlarmManager.getInstance().setAlarm(this, alarm);
+        AwesomeAlarmManager.getInstance(this).setAlarm(alarm);
     }
 
     /**

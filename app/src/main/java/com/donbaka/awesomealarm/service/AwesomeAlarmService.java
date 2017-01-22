@@ -64,7 +64,7 @@ public class AwesomeAlarmService extends IntentService {
             RealmAlarm result = realm.where(RealmAlarm.class).equalTo("alarmId", id).findFirst();
 
             Alarm alarm = (Alarm) ModelConverter.getInstance().convert(RealmAlarm.class, Alarm.class, result);
-            AwesomeAlarmManager.getInstance().setAlarm(this, alarm);
+            AwesomeAlarmManager.getInstance(this).setAlarm(alarm);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

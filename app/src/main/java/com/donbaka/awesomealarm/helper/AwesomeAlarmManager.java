@@ -19,6 +19,8 @@ public class AwesomeAlarmManager {
 
     private static AwesomeAlarmManager instance;
 
+    private Context context;
+
     private AwesomeAlarmManager() {
 
     }
@@ -29,10 +31,12 @@ public class AwesomeAlarmManager {
      * @param alarm
      * @return
      */
-    public static AwesomeAlarmManager getInstance() {
+    public static AwesomeAlarmManager getInstance(Context context) {
         if(instance == null) {
             instance = new AwesomeAlarmManager();
         }
+
+        instance.context = context;
 
         return instance;
     }
@@ -41,7 +45,7 @@ public class AwesomeAlarmManager {
      * get alarm service from system
      * @return AlarmManager from system
      */
-    private AlarmManager getAlarmManager(Context context) {
+    private AlarmManager getAlarmManager() {
         return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
@@ -49,7 +53,7 @@ public class AwesomeAlarmManager {
      * get Pending Intent for alarm
      * @return PendingIntent
      */
-    private PendingIntent getAlarmIntent(Context context, Alarm alarm) {
+    private PendingIntent getAlarmIntent(Alarm alarm) {
         Intent intent = new Intent(context, AwesomeAlarmService.class);
         intent.setAction(Constant.START_ALARM);
         intent.putExtra(Constant.ID, alarm.getAlarmId());
@@ -60,7 +64,7 @@ public class AwesomeAlarmManager {
     /**
      * register alarm data to alarm manager
      */
-    public void setAlarm(Context context, Alarm alarm) {
+    public void setAlarm(Alarm alarm) {
         Calendar alarmTime = Calendar.getInstance();
         alarmTime.set(Calendar.HOUR_OF_DAY, alarm.getHour());
         alarmTime.set(Calendar.MINUTE, alarm.getMinute());
@@ -72,7 +76,7 @@ public class AwesomeAlarmManager {
             alarmTime.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        getAlarmManager(context).set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), getAlarmIntent(context, alarm));
+        getAlarmManager().set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), getAlarmIntent(alarm));
     }
 
     /**
@@ -80,8 +84,8 @@ public class AwesomeAlarmManager {
      * @param context
      * @param alarm
      */
-    public void cancelAlarm(Context context, Alarm alarm) {
-        getAlarmManager(context).cancel(getAlarmIntent(context, alarm));
+    public void cancelAlarm(Alarm alarm) {
+        getAlarmManager().cancel(getAlarmIntent(alarm));
     }
 
 

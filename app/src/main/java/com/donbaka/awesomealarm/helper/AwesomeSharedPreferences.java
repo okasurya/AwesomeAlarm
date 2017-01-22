@@ -11,8 +11,8 @@ import android.content.SharedPreferences;
 public class AwesomeSharedPreferences {
 
     private static AwesomeSharedPreferences instance;
-    private static SharedPreferences pref;
-    private static SharedPreferences.Editor editor;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     private AwesomeSharedPreferences() {
 
@@ -28,8 +28,8 @@ public class AwesomeSharedPreferences {
             instance = new AwesomeSharedPreferences();
         }
 
-        pref = context.getSharedPreferences("AwesomeAlarm", 0); // 0 - for private mode
-        editor = pref.edit();
+        instance.pref = context.getSharedPreferences("AwesomeAlarm", 0); // 0 - for private mode
+        instance.editor = instance.pref.edit();
 
         return instance;
     }

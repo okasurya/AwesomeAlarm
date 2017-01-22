@@ -75,7 +75,7 @@ public class MainActivity extends ArkAppCompatActivity {
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {
-                                        AwesomeAlarmManager.getInstance().cancelAlarm(MainActivity.this, mAlarms.get(position));
+                                        AwesomeAlarmManager.getInstance(MainActivity.this).cancelAlarm(mAlarms.get(position));
                                         RealmAlarm toBeDeleted = realm.where(RealmAlarm.class).equalTo("alarmId", mAlarms.get(position).getAlarmId()).findFirst();
                                         toBeDeleted.deleteFromRealm();
                                         loadData();
