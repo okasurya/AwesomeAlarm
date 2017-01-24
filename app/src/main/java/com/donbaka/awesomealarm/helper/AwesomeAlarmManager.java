@@ -56,7 +56,7 @@ public class AwesomeAlarmManager {
     private PendingIntent getAlarmIntent(Alarm alarm) {
         Intent intent = new Intent(context, AwesomeAlarmService.class);
         intent.setAction(Constant.START_ALARM);
-        intent.putExtra(Constant.ID, alarm.getAlarmId());
+        intent.putExtra(Constant.ALARM, alarm);
 
         return PendingIntent.getService(context, alarm.getAlarmId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }

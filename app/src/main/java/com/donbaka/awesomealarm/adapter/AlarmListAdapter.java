@@ -45,14 +45,20 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.View
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                return longClickListener.onItemLongClicked(position);
+                if(longClickListener != null) {
+                    return longClickListener.onItemLongClicked(position);
+                } else {
+                    return false;
+                }
             }
         });
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClicked(position);
+                if(clickListener != null) {
+                    clickListener.onItemClicked(position);
+                }
             }
         });
     }

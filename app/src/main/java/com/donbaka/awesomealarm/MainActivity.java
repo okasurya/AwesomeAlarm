@@ -2,8 +2,11 @@ package com.donbaka.awesomealarm;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +36,7 @@ public class MainActivity extends ArkAppCompatActivity {
 
     private List<Alarm> mAlarms;
     private AlertDialog.Builder alertDialog;
+    private final int DIALOG_OVERLAY_PERMISSION = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,37 @@ public class MainActivity extends ArkAppCompatActivity {
         loadData();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == DIALOG_OVERLAY_PERMISSION) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(Settings.canDrawOverlays(this)) {
+
+                } else {
+                    finish();
+                }
+            }
+        }
+    }
+
+    public void checkDrawOverlayPermission() {
+        /** check if we already  have permission to draw over other apps */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                /** if not construct intent to request permission */
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                /** request permission via start activity for result */
+                startActivityForResult(intent, DIALOG_OVERLAY_PERMISSION);
+            }
+        }
+    }
+
     /**
      * Load UI elements of this activity
      */
     private void loadUI() {
+        checkDrawOverlayPermission();
         rvAlarm.setHasFixedSize(true);
 
         // use a linear layout manager

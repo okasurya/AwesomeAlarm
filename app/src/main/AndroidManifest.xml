@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.donbaka.awesomealarm">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".AwesomeAlarmApplication"
         android:allowBackup="true"
@@ -23,7 +25,8 @@
             android:exported="false" />
 
         <activity android:name=".AlarmActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

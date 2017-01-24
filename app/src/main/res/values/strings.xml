@@ -3,4 +3,11 @@
     <string name="dialog_delete_alarm">Are you sure want to delete this alarm?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string-array name="alarm_tones">
+        <item>Choose alarm tone</item>
+        <item>Foghorn</item>
+        <item>Alarm clock</item>
+        <item>Railroad bell</item>
+        <item>Siren</item>
+    </string-array>
 </resources>

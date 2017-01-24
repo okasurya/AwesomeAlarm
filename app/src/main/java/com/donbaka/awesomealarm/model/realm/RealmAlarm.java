@@ -11,6 +11,7 @@ public class RealmAlarm extends RealmObject {
     public String alarmTitle;
     public int hour;
     public int minute;
+    public int tone;
 
     public int getAlarmId() {
         return alarmId;
@@ -42,5 +43,13 @@ public class RealmAlarm extends RealmObject {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public int getTone() {
+        return tone;
+    }
+
+    public void setTone(int tone) {
+        this.tone = tone;
     }
 }

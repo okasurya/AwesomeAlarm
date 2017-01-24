@@ -10,4 +10,5 @@ public class Constant {
 
     // PARAMETER
     public static final String ID = "com.donbaka.awesomealarm.ID";
+    public static final String ALARM = "com.donbaka.awesomealarm.ALARM";
 }
